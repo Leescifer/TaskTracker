@@ -1,0 +1,41 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .bounce {
+        animation: bounce 1s infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition: ease-in .3s;
+
+        .text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #050505;
+        }
+    }
+
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        transition: ease-in .3s;
+
+    }
+
+    50% {
+        transform: translateY(-15px);
+        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+        transition: ease-in .3s;
+
+
+    }
+}
