@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function create() {
+    public function create()
+    {
         $users = User::all();
         return view('task.create', compact('users'));
     }
 
-
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -33,10 +34,37 @@ class TaskController extends Controller
             'admin_user_id' => Auth::id(),
         ]);
 
-    return redirect()->route('tasks.index')->with('success', 'Task assigned successfully.');
-
+        return redirect()->route('tasks.index')->with('success', 'Task assigned successfully.');
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'date_start' => 'required|date',
+            'date_end' => 'required|date|after_or_equal:date_start',
+            'user_id' => 'required|exists:users,id',
+        ]);
 
+        $task = Task::findOrFail($id);
+        $task->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+            'user_id' => $request->user_id,
+            'admin_user_id' => Auth::id(),
+        ]);
 
-};
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+    }
+
+    public function delete($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete(); // Soft delete
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+    }
+}
