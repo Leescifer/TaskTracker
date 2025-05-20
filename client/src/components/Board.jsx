@@ -1,57 +1,43 @@
 "use client";
+
+import React, { useState } from "react";
 import styles from "@/styles/board.module.scss";
 
-import React, { useState } from 'react';
-
 const initialTasks = {
-    todo: [
-        {
-            id: "1",
-            text: "Tasl 1",
-        }
-    ],
-      inPorgress: [
-        {
-            id: "2",
-            text: "Tasl 2",
-        }
-    ],
-      done: [
-        {
-            id: "3",
-            text: "Task 3",
-        }
-    ],
-}
+  todo: [
+    { id: "1", text: "Task 1" }
+  ],
+  inProgress: [
+    { id: "2", text: "Task 2" }
+  ],
+  done: [
+    { id: "3", text: "Task 3" }
+  ],
+};
+
+const columns = {
+  todo: "To Do",
+  inProgress: "In Progress",
+  done: "Done"
+};
 
 const Board = () => {
-    const [tasks, setTasks] = useState(initialTasks);
-    const [menuOpenFor, setMenuOpenFor] = useState(false);
+  const [tasks, setTasks] = useState(initialTasks);
+  const [menuOpenFor, setMenuOpenFor] = useState(null);
 
-    const columns = {
-        todo: "To Do",
-        inPorgress: "In Progress",
-        done: "Done",
-    };
+  const toggleMenu = (taskId) => {
+    setMenuOpenFor(prev => (prev === taskId ? null : taskId));
+  };
 
-    const toggleMenu = () => {
-        setMenuOpenFor((prev) => (prev === taskId ? null : taskId));
-    }
-    
-   const moveTask = (taskId, fromColumn, toColumn) => {
+  const moveTask = (taskId, fromColumn, toColumn) => {
     if (fromColumn === toColumn) return;
 
-    setTasks((prev) => {
+    setTasks(prev => {
       const newTasks = { ...prev };
-
-      // Find task
-      const task = newTasks[fromColumn].find((t) => t.id === taskId);
+      const task = newTasks[fromColumn].find(t => t.id === taskId);
       if (!task) return prev;
 
-      // Remove from old column
-      newTasks[fromColumn] = newTasks[fromColumn].filter((t) => t.id !== taskId);
-
-      // Add to new column
+      newTasks[fromColumn] = newTasks[fromColumn].filter(t => t.id !== taskId);
       newTasks[toColumn] = [...newTasks[toColumn], task];
 
       return newTasks;
@@ -60,14 +46,13 @@ const Board = () => {
     setMenuOpenFor(null);
   };
 
-
-    return(
-       <div className={styles.board}>
+  return (
+    <div className={styles.board}>
       {Object.entries(columns).map(([columnKey, columnName]) => (
         <div key={columnKey} className={styles.column}>
           <h2 className={styles.title}>{columnName}</h2>
           <div className={styles.taskList}>
-            {tasks[columnKey].map((task) => (
+            {tasks[columnKey].map(task => (
               <div key={task.id} className={styles.task}>
                 <div className={styles.taskText}>{task.text}</div>
                 <div className={styles.taskActions}>
@@ -100,7 +85,7 @@ const Board = () => {
         </div>
       ))}
     </div>
-    );
- };
+  );
+};
 
- export default Board;
+export default Board;

@@ -6,6 +6,7 @@
       "@context/*" : ["./src/context/*"],
       "@styles/*" : ["./src/styles/*"],
       "@store/*" : ["./src/store/*"],
+      "@hooks/*" : ["./src/hooks/*"],
     }
   }
 }

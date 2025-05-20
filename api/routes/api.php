@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 Route::post("signup", [AuthController::class, "signup"]);
 Route::post("signin", [AuthController::class, "signin"]);
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [TaskController::class, 'index'])->name('index');
     });
 });
+
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);

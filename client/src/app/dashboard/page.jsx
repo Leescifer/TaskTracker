@@ -22,8 +22,7 @@ import Logo from '@components/Logo.jsx';
 import Link from 'next/link';
 import { logout as logoutAction } from '@/store/auth.js';
 
-
-
+import Task from '../Task/page.jsx'
 import Board from '@/components/Board.jsx';
 
 // Define the admin and user menus
@@ -120,8 +119,9 @@ const Dashboard = () => {
           </div>
 
           <UserContainer>
-            {/* Add user avatar, settings, notifications, etc. here if needed */}
+            <Task/>
           </UserContainer>
+          
         </TopContainer>
 
         <Content>
