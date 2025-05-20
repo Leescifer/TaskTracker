@@ -1,4 +1,4 @@
-import Authentication from './auth/page.jsx'
+import Authentication from './auth/page.jsx';
 
 
 export default function Home() {

@@ -94,8 +94,8 @@ export const AuthProvider = ({ children }) => {
             if (response.data.status) {
                 Cookies.set("authToken", response.data.access_token, { expires: 10 });
                 setAuthToken(response.data.access_token);
-                setUser(response.data.user);  // Save user data including role
-                setUserRole(response.data.user.role);  // Set user role
+                setUser(response.data.user);  
+                setUserRole(response.data.user.role);  
                 toast.success('Signed up successfully');
                 router.push('/dashboard');
             } else {

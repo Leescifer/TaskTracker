@@ -1,16 +1,34 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/context/authContext.jsx';
-import { useRouter, usePathname } from 'next/navigation';
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
+import {
+  useRouter,
+  usePathname
+} from 'next/navigation';
+import {
+  MainContainer,
+  MenuContainer,
+  ContentContainer,
+  TopContainer,
+  UserContainer,
+  Content
+} from '@components/layoutComponents.jsx';
 import styles from '@styles/dashboard.module.scss';
 import MenuButton from '@/components/Menu.jsx';
 import Logo from '@components/Logo.jsx';
 import Link from 'next/link';
+import { logout as logoutAction } from '@/store/auth.js';
+
+
+
+import Board from '@/components/Board.jsx';
 
 // Define the admin and user menus
 const adminMenu = [
   { title: 'Dashboard', path: '/dashboard', visible: true },
-  { title: 'New Task', path: '/task', visible: true },
   { title: 'Manage Users', path: '/manage-users', visible: true },
   { title: 'Logout', path: '/logout', visible: true }
 ];
@@ -21,42 +39,19 @@ const userMenu = [
   { title: 'Logout', path: '/logout', visible: true }
 ];
 
-// UI Components
-const MainContainer = ({ children }) => (
-  <div className={styles.mainContainer}>{children}</div>
-);
-
-const MenuContainer = ({ children, open }) => (
-  <div className={`${styles.menuContainer} ${open ? styles.open : ''}`}>{children}</div>
-);
-
-const ContentContainer = ({ children }) => (
-  <div className={styles.contentContainer}>{children}</div>
-);
-
-const TopContainer = ({ children }) => (
-  <div className={styles.topContainer}>{children}</div>
-);
-
-const UserContainer = ({ children }) => (
-  <div className={styles.userContainer}>{children}</div>
-);
-
-const Content = ({ children }) => (
-  <div className={styles.content}>{children}</div>
-);
-
 // Dashboard Component
 const Dashboard = () => {
   const [open, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { authToken, loading, logout, userRole } = useAuth();  // Get user role from context
+  const dispatch = useDispatch();
+
+  const { token: authToken, loading, role: userRole } = useSelector((state) => state.auth);
 
   const toggleMenu = () => setIsOpen(!open);
   const closeMenu = () => setIsOpen(false);
 
-  // Close the menu when 'Escape' is pressed
+  // Close menu on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') closeMenu();
@@ -70,10 +65,10 @@ const Dashboard = () => {
     if (!authToken && !loading) {
       router.push("/auth");
     }
-  }, [authToken, loading]);
+  }, [authToken, loading, router]);
 
-  // Determine the menu based on the user's role
-  const menus = userRole === 'admin' ? adminMenu : userMenu;  // Make sure these are defined
+  // Choose menu based on user role
+  const menus = userRole === 'admin' ? adminMenu : userMenu;
 
   return (
     <MainContainer>
@@ -90,15 +85,14 @@ const Dashboard = () => {
                 key={index}
                 onClick={() => {
                   closeMenu();
-                  logout();
+                  dispatch(logoutAction());
                 }}
                 className={styles.navItem}
                 style={{ cursor: 'pointer' }}
               >
                 <span>{menu.title}</span>
               </div>
-            ) :
-            
+            ) : (
               <Link
                 key={index}
                 href={menu.path}
@@ -107,6 +101,7 @@ const Dashboard = () => {
               >
                 <span>{menu.title}</span>
               </Link>
+            )
           ))}
         </nav>
       </MenuContainer>
@@ -119,18 +114,20 @@ const Dashboard = () => {
 
           <div className={styles.titleName}>
             <h1 className={styles.title}>
-              Hello, <span className={styles.titleSpan}>{userRole}</span>!
+              Hello, <span className={styles.titleSpan}>{userRole || 'User'}</span>!
             </h1>
             <p className={styles.titleDescription}>Keep track of your task.</p>
           </div>
 
           <UserContainer>
-            {/* Add avatar, settings, etc. */}
+            {/* Add user avatar, settings, notifications, etc. here if needed */}
           </UserContainer>
         </TopContainer>
 
         <Content>
-          {/* Page content will go here */}
+          <div className={styles.boardContainer}>
+            <Board />
+          </div>
         </Content>
       </ContentContainer>
     </MainContainer>

@@ -3,7 +3,7 @@ import styles from '@styles/logo.module.scss'
 
 const Logo = () => {
   return (
-    <div class={styles.logo}>
+    <div className={styles.logo}>
     <span className={styles.span}>A</span>NQUERO
   </div>
   )

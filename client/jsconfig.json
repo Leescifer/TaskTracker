@@ -5,6 +5,7 @@
       "@components/*" : ["./src/components/*"],
       "@context/*" : ["./src/context/*"],
       "@styles/*" : ["./src/styles/*"],
+      "@store/*" : ["./src/store/*"],
     }
   }
 }
