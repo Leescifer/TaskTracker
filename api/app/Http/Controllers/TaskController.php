@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function create()
+    // GET /tasks
+    public function index()
     {
-        $users = User::all();
-        return view('task.create', compact('users'));
+        $tasks = Task::with(['user', 'admin'])->get();
+        return response()->json($tasks);
     }
 
+    // POST /tasks
     public function store(Request $request)
     {
+        if (!Auth::user()->isAdmin()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -25,7 +30,7 @@ class TaskController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        Task::create([
+        $task = Task::create([
             'title' => $request->title,
             'description' => $request->description,
             'date_start' => $request->date_start,
@@ -34,11 +39,16 @@ class TaskController extends Controller
             'admin_user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('tasks.index')->with('success', 'Task assigned successfully.');
+        return response()->json($task, 201);
     }
 
+    // PUT /tasks/{id}
     public function update(Request $request, $id)
     {
+        if (!Auth::user()->isAdmin()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -57,14 +67,19 @@ class TaskController extends Controller
             'admin_user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+        return response()->json($task);
     }
 
-    public function delete($id)
+    // DELETE /tasks/{id}
+    public function destroy($id)
     {
-        $task = Task::findOrFail($id);
-        $task->delete(); // Soft delete
+        if (!Auth::user()->isAdmin()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
-        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return response()->json(['message' => 'Task deleted successfully.']);
     }
 }

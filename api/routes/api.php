@@ -9,19 +9,13 @@ use App\Http\Controllers\UserController;
 Route::post("signup", [AuthController::class, "signup"]);
 Route::post("signin", [AuthController::class, "signin"]);
 
-// Protected routes
+// Protected routes with sanctum auth
 Route::middleware('auth:sanctum')->group(function () {
     Route::get("profile", [AuthController::class, "profile"]);
     Route::post("logout", [AuthController::class, "logout"]);
 
-    // Task routes
-    Route::prefix('tasks')->name('tasks.')->group(function () {
-        Route::get('/create', [TaskController::class, 'create'])->name('create'); 
-        Route::post('/store', [TaskController::class, 'store'])->name('store');
-        Route::put('/{id}/update', [TaskController::class, 'update'])->name('update');
-        Route::delete('/{id}/delete', [TaskController::class, 'delete'])->name('delete');
-        Route::get('/', [TaskController::class, 'index'])->name('index');
-    });
-});
+    // RESTful task routes
+    Route::apiResource('tasks', TaskController::class)->except(['show', 'create', 'edit']);
 
-Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
+});

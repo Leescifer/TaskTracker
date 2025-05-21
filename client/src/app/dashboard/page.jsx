@@ -22,8 +22,7 @@ import Logo from '@components/Logo.jsx';
 import Link from 'next/link';
 import { logout as logoutAction } from '@/store/auth.js';
 
-import Task from '../Task/page.jsx'
-import Board from '@/components/Board.jsx';
+import KanbanBoard from '@/components/KanbanBoard.jsx';
 
 // Define the admin and user menus
 const adminMenu = [
@@ -119,14 +118,14 @@ const Dashboard = () => {
           </div>
 
           <UserContainer>
-            <Task/>
+            {/* You can add user info or logout button here if needed */}
           </UserContainer>
-          
+
         </TopContainer>
 
         <Content>
           <div className={styles.boardContainer}>
-            <Board />
+            <KanbanBoard />
           </div>
         </Content>
       </ContentContainer>

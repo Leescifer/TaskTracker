@@ -1,0 +1,30 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  }
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+    color: #555;
+
+    &:last-child {
+      color: #888;
+      font-size: 0.85rem;
+    }
+  }
+}
