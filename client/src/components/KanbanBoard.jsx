@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import TaskCard from '@components/TaskCard.jsx';
 import TaskModal from '@components/TaskModal.jsx';  
 import styles from '@styles/kandanBord.module.scss';
+import { fetchTasks } from '../store/taskSlice'; // Make sure this path is correct
 
 const KanbanBoard = () => {
+  const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks?.tasks || []);
+  const loading = useSelector((state) => state.tasks?.loading);
+  const error = useSelector((state) => state.tasks?.error);
   const { role = 'user', user = {} } = useSelector((state) => state.auth || {});
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Add useEffect to fetch tasks when component mounts
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const filterTasks = (status) => {
     return tasks.filter((task) => {
@@ -30,6 +39,13 @@ const KanbanBoard = () => {
         </button>
       )}
 
+      {/* Show loading indicator */}
+      {loading && <div className={styles.loading}>Loading tasks...</div>}
+      
+      {/* Show error message if fetch failed */}
+      {error && <div className={styles.error}>Error: {error}</div>}
+
+      {/* Display columns and tasks */}
       {columns.map((col) => (
         <div key={col} className={styles.column}>
           <h2>{col.toUpperCase()}</h2>
