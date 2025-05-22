@@ -8,20 +8,20 @@ const DeleteTaskModal = ({ isOpen, onClose, taskId }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
-    await dispatch(deleteTask(taskId));
-    onClose(); // close the modal after deleting
+    dispatch(deleteTask(taskId));
+    onClose(); 
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.deleteOverlay}>
       <div className={styles.modal}>
-        <h3>Confirm Delete</h3>
-        <p>Are you sure you want to delete this task?</p>
+        <h3 className={styles.confirm}>Confirm Delete</h3>
+        <p className={styles.delete}>Are you sure you want to delete this task?</p>
         <div className={styles.modalActions}>
-          <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
           <button className={styles.deleteBtn} onClick={handleDelete}>Delete</button>
+          <button className={styles.cancelBtn} onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>
