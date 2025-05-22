@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TaskCard from '@components/TaskCard.jsx';
-import TaskModal from '@components/TaskModal.jsx';  
+import TaskModal from '@components/TaskModal.jsx';
 import styles from '@styles/kandanBord.module.scss';
-import { fetchTasks } from '../store/taskSlice'; // Make sure this path is correct
+import { fetchTasks } from '../store/taskSlice';
 
 const KanbanBoard = () => {
   const dispatch = useDispatch();
@@ -19,11 +19,13 @@ const KanbanBoard = () => {
     dispatch(fetchTasks());
   }, [dispatch]);
 
-  const filterTasks = (status) => {
-    return tasks.filter((task) => {
-      return task.status === status && (role === 'admin' || task.user_id === user.id);
-    });
-  };
+  const filterTasks = (status) =>
+    tasks.filter(
+      (task) =>
+        task &&
+        task.status === status &&
+        (role === 'admin' || (user?.id && task.user_id === user.id))
+    );
 
   const columns = ['todo', 'inprogress', 'done'];
 
@@ -41,7 +43,7 @@ const KanbanBoard = () => {
 
       {/* Show loading indicator */}
       {loading && <div className={styles.loading}>Loading tasks...</div>}
-      
+
       {/* Show error message if fetch failed */}
       {error && <div className={styles.error}>Error: {error}</div>}
 
@@ -49,9 +51,9 @@ const KanbanBoard = () => {
       {columns.map((col) => (
         <div key={col} className={styles.column}>
           <h2>{col.toUpperCase()}</h2>
-          {filterTasks(col).map((task) => (
-            <TaskCard key={task.id} task={task} />
-          ))}
+          {filterTasks(col).map((task) =>
+            task ? <TaskCard key={task.id} task={task} /> : null
+          )}
         </div>
       ))}
 

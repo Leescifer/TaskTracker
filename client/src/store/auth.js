@@ -80,6 +80,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, { getState }) =>
     // Ignore errors on logout
   }
   Cookies.remove('authToken');
+  return true
 });
 
 const authSlice = createSlice({

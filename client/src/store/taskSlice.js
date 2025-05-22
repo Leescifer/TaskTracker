@@ -9,7 +9,7 @@ const getApiUrl = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) {
     console.error('API URL is not defined in environment variables');
-    return 'http://localhost:5000'; // Fallback URL for development
+    return 'http://localhost:5000';
   }
   return url;
 };
@@ -27,29 +27,24 @@ const getAuthHeader = () => {
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, { rejectWithValue }) => {
   try {
     const headers = getAuthHeader();
-    
-    // Log the request details for debugging
+
     console.log(`Fetching tasks from: ${getApiUrl()}/tasks`);
     console.log('Headers:', headers);
-    
-    // If no auth token is available, reject early with a clear message
+
     if (!headers.Authorization) {
       return rejectWithValue('No authentication token available');
     }
-    
+
     const res = await axios.get(`${getApiUrl()}/tasks`, { headers });
-    
-    // Log the response for debugging
+
     console.log('Tasks fetched successfully:', res.data);
-    
+
     return res.data;
   } catch (err) {
     console.error('Error fetching tasks:', err);
-    
-    // Enhanced error handling with more details
     const errorMessage = err.response?.data?.message || err.message || 'Failed to fetch tasks';
     const statusCode = err.response?.status;
-    
+
     return rejectWithValue({
       message: errorMessage,
       status: statusCode,
@@ -107,7 +102,13 @@ const taskSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
-        state.tasks = action.payload;
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
+        state.tasks = action.payload.map((task) => ({
+          ...task,
+          status: normalizeStatus(task.status),
+        }));
         state.loading = false;
       })
       .addCase(fetchTasks.rejected, (state, action) => {
@@ -119,7 +120,16 @@ const taskSlice = createSlice({
         state.error = null;
       })
       .addCase(createTask.fulfilled, (state, action) => {
-        state.tasks = [...state.tasks, action.payload];
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
+        state.tasks = [
+          ...state.tasks,
+          {
+            ...action.payload,
+            status: normalizeStatus(action.payload.status),
+          }
+        ];
         state.loading = false;
       })
       .addCase(createTask.rejected, (state, action) => {
@@ -131,8 +141,16 @@ const taskSlice = createSlice({
         state.error = null;
       })
       .addCase(updateTask.fulfilled, (state, action) => {
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
+        const updatedTask = {
+          ...action.payload,
+          status: normalizeStatus(action.payload.status),
+        };
+
         state.tasks = state.tasks.map((task) =>
-          task.id === action.payload.id ? action.payload : task
+          task.id === updatedTask.id ? updatedTask : task
         );
         state.loading = false;
       })

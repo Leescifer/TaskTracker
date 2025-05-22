@@ -33,7 +33,6 @@ const adminMenu = [
 
 const userMenu = [
   { title: 'Profile', path: '/profile', visible: true },
-  { title: 'View Tasks', path: '/tasks', visible: true },
   { title: 'Logout', path: '/logout', visible: true }
 ];
 
@@ -59,14 +58,28 @@ const Dashboard = () => {
   }, []);
 
   // Redirect to login if not authenticated
+  // useEffect(() => {
+  //   if (!authToken && !loading) {
+  //     router.push("/auth");
+  //   }
+  // }, [authToken, loading, router]);
+
+  // When authToken becomes null after logout, redirect to /auth
   useEffect(() => {
     if (!authToken && !loading) {
-      router.push("/auth");
+      router.push('/auth');
     }
   }, [authToken, loading, router]);
 
   // Choose menu based on user role
   const menus = userRole === 'admin' ? adminMenu : userMenu;
+
+  // Logout handler
+const handleLogout = async () => {
+  closeMenu();
+  await dispatch(logoutAction()).unwrap();  
+  router.push('/auth');
+};
 
   return (
     <MainContainer>
@@ -81,10 +94,7 @@ const Dashboard = () => {
             menu.title === 'Logout' ? (
               <div
                 key={index}
-                onClick={() => {
-                  closeMenu();
-                  dispatch(logoutAction());
-                }}
+                onClick={handleLogout}
                 className={styles.navItem}
                 style={{ cursor: 'pointer' }}
               >
@@ -101,6 +111,7 @@ const Dashboard = () => {
               </Link>
             )
           ))}
+
         </nav>
       </MenuContainer>
 
