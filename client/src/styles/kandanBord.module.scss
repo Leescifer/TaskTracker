@@ -32,18 +32,47 @@
 .addTaskButton {
   position: absolute;
   top: 8rem;
-  right: 2rem;
-  padding: 12px 20px;
-  background-color: #0070f3;
-  color: white;
+  right: 1.5rem;
+  padding: 0.50rem 1rem;
+  background-color: #333;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 100;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   z-index: 1000;
+  transition: background-color 0.2s ease-in-out;
 
-  &:hover {
-    background-color: #005bb5;
+  &:hover,
+  &:focus {
+    background-color: white;
+    color: #333;
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
 }
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.columnIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #333;
+}
+
 

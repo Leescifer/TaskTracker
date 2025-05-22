@@ -1,20 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {
-  useSelector,
-  useDispatch
-} from 'react-redux';
-import {
-  useRouter,
-  usePathname
-} from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   MainContainer,
   MenuContainer,
   ContentContainer,
   TopContainer,
   UserContainer,
-  Content
+  Content,
 } from '@components/layoutComponents.jsx';
 import styles from '@styles/dashboard.module.scss';
 import MenuButton from '@/components/Menu.jsx';
@@ -22,33 +16,41 @@ import Logo from '@components/Logo.jsx';
 import Link from 'next/link';
 import { logout as logoutAction } from '@/store/auth.js';
 
+// Lucide Icons
+import {
+  LayoutDashboard as DashboardIcon,
+  Users as UsersIcon,
+  LogOut as LogoutIcon,
+  CircleUser ,
+} from 'lucide-react';
+
 import KanbanBoard from '@/components/KanbanBoard.jsx';
 
-// Define the admin and user menus
+// Menu configs
 const adminMenu = [
-  { title: 'Dashboard', path: '/dashboard', visible: true },
-  { title: 'Manage Users', path: '/manage-users', visible: true },
-  { title: 'Logout', path: '/logout', visible: true }
+  { title: 'Dashboard', path: '/dashboard', visible: true, icon: <DashboardIcon /> },
+  { title: 'Users', path: '/users', visible: true, icon: <UsersIcon /> },
+  { title: 'Logout', path: '/logout', visible: true, icon: <LogoutIcon /> },
 ];
 
 const userMenu = [
-  { title: 'Profile', path: '/profile', visible: true },
-  { title: 'Logout', path: '/logout', visible: true }
+  { title: 'Dashboard', path: '/dashboard', visible: true, icon: <DashboardIcon /> },
+  { title: 'Profile', path: '/profile', visible: true, icon: <CircleUser /> },
+  { title: 'Logout', path: '/logout', visible: true, icon: <LogoutIcon /> },
 ];
 
-// Dashboard Component
 const Dashboard = () => {
   const [open, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const { token: authToken, loading, role: userRole } = useSelector((state) => state.auth);
+  const { token: authToken, loading, role: userRole = 'user' } = useSelector((state) => state.auth);
 
-  const toggleMenu = () => setIsOpen(!open);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
-  // Close menu on Escape key
+  // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') closeMenu();
@@ -57,61 +59,65 @@ const Dashboard = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Redirect to login if not authenticated
-  // useEffect(() => {
-  //   if (!authToken && !loading) {
-  //     router.push("/auth");
-  //   }
-  // }, [authToken, loading, router]);
-
-  // When authToken becomes null after logout, redirect to /auth
+  // Redirect if unauthenticated
   useEffect(() => {
     if (!authToken && !loading) {
       router.push('/auth');
     }
   }, [authToken, loading, router]);
 
-  // Choose menu based on user role
   const menus = userRole === 'admin' ? adminMenu : userMenu;
 
-  // Logout handler
-const handleLogout = async () => {
-  closeMenu();
-  await dispatch(logoutAction()).unwrap();  
-  router.push('/auth');
-};
+  const handleLogout = async () => {
+    closeMenu();
+    await dispatch(logoutAction()).unwrap();
+    // Navigation will occur via useEffect when token becomes null
+  };
 
   return (
     <MainContainer>
-      <div className={`${styles.overlay} ${open ? styles.show : ''}`} onClick={closeMenu}></div>
+      <div
+        className={`${styles.overlay} ${open ? styles.show : ''}`}
+        onClick={closeMenu}
+      ></div>
 
       <MenuContainer open={open}>
         <div className={styles.adminLogo}>
           <Logo />
         </div>
         <nav className={styles.navMenu}>
-          {menus.filter(menu => menu.visible).map((menu, index) => (
-            menu.title === 'Logout' ? (
-              <div
-                key={index}
-                onClick={handleLogout}
-                className={styles.navItem}
-                style={{ cursor: 'pointer' }}
-              >
-                <span>{menu.title}</span>
-              </div>
-            ) : (
+          {menus.filter((menu) => menu.visible).map((menu, index) => {
+            if (menu.title === 'Logout') {
+              return (
+                <div
+                  key={index}
+                  onClick={handleLogout}
+                  className={styles.navItem}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className={styles.navLinks}>
+                    {menu.icon}
+                    {menu.title}
+                  </span>
+                </div>
+              );
+            }
+            return (
               <Link
                 key={index}
                 href={menu.path}
                 onClick={closeMenu}
-                className={`${styles.navItem} ${pathname === menu.path ? styles.active : ''}`}
+                className={`${styles.navItem} ${
+                  pathname === menu.path ? styles.active : ''
+                }`}
               >
-                <span>{menu.title}</span>
+                <span className={styles.navLinks}>
+                  {menu.icon}
+                  {menu.title}
+                </span>
               </Link>
-            )
-          ))}
-
+            );
+          })}
         </nav>
       </MenuContainer>
 
@@ -123,15 +129,12 @@ const handleLogout = async () => {
 
           <div className={styles.titleName}>
             <h1 className={styles.title}>
-              Hello, <span className={styles.titleSpan}>{userRole || 'User'}</span>!
+              Hello, <span className={styles.titleSpan}>{userRole}</span>!
             </h1>
             <p className={styles.titleDescription}>Keep track of your task.</p>
           </div>
 
-          <UserContainer>
-            {/* You can add user info or logout button here if needed */}
-          </UserContainer>
-
+          <UserContainer>{/* Optional user info */}</UserContainer>
         </TopContainer>
 
         <Content>

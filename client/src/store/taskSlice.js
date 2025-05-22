@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// Helper for debugging API URL issues
 const getApiUrl = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
   if (!url) {
@@ -11,6 +14,7 @@ const getApiUrl = () => {
   return url;
 };
 
+// Helper for token management
 const getAuthHeader = () => {
   const token = Cookies.get('authToken');
   if (!token) {
@@ -20,30 +24,24 @@ const getAuthHeader = () => {
   return { Authorization: `Bearer ${token}` };
 };
 
-const normalizeStatus = (status) =>
-  status?.toLowerCase().replace(/\s+/g, '') || 'todo';
-
-const setLoading = (state) => {
-  state.loading = true;
-  state.error = null;
-};
-
-const setError = (state, action) => {
-  state.loading = false;
-  state.error = action.payload;
-};
-
-// Async Thunks
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (_, { rejectWithValue }) => {
   try {
     const headers = getAuthHeader();
+
+    console.log(`Fetching tasks from: ${getApiUrl()}/tasks`);
+    console.log('Headers:', headers);
+
     if (!headers.Authorization) {
       return rejectWithValue('No authentication token available');
     }
 
     const res = await axios.get(`${getApiUrl()}/tasks`, { headers });
+
+    console.log('Tasks fetched successfully:', res.data);
+
     return res.data;
   } catch (err) {
+    console.error('Error fetching tasks:', err);
     const errorMessage = err.response?.data?.message || err.message || 'Failed to fetch tasks';
     const statusCode = err.response?.status;
 
@@ -85,7 +83,6 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id, { reje
   }
 });
 
-// Slice
 const taskSlice = createSlice({
   name: 'tasks',
   initialState: {
@@ -100,9 +97,14 @@ const taskSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetch Tasks
-      .addCase(fetchTasks.pending, setLoading)
+      .addCase(fetchTasks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchTasks.fulfilled, (state, action) => {
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
         state.tasks = action.payload.map((task) => ({
           ...task,
           status: normalizeStatus(task.status),
@@ -113,39 +115,61 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.payload?.message || action.payload || 'Unknown error';
       })
-
-      // Create Task
-      .addCase(createTask.pending, setLoading)
+      .addCase(createTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(createTask.fulfilled, (state, action) => {
-        state.tasks.push({
-          ...action.payload,
-          status: normalizeStatus(action.payload.status),
-        });
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
+        state.tasks = [
+          ...state.tasks,
+          {
+            ...action.payload,
+            status: normalizeStatus(action.payload.status),
+          }
+        ];
         state.loading = false;
       })
-      .addCase(createTask.rejected, setError)
-
-      // Update Task
-      .addCase(updateTask.pending, setLoading)
+      .addCase(createTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(updateTask.fulfilled, (state, action) => {
+        const normalizeStatus = (status) =>
+          status?.toLowerCase().replace(/\s+/g, '') || 'todo';
+
         const updatedTask = {
           ...action.payload,
           status: normalizeStatus(action.payload.status),
         };
+
         state.tasks = state.tasks.map((task) =>
           task.id === updatedTask.id ? updatedTask : task
         );
         state.loading = false;
       })
-      .addCase(updateTask.rejected, setError)
-
-      // Delete Task
-      .addCase(deleteTask.pending, setLoading)
+      .addCase(updateTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
         state.loading = false;
       })
-      .addCase(deleteTask.rejected, setError);
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

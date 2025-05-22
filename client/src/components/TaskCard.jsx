@@ -24,7 +24,7 @@ const TaskCard = ({ task }) => {
       )}
 
       {role === 'user' && (
-        <button className={styles.elipse} onclick>
+        <button className={styles.elipse}>
            <EllipsisVertical />
         </button>
       )}

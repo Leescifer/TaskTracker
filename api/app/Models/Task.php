@@ -17,6 +17,8 @@ class Task extends Model
         "date_end",
         "admin_user_id",
         "user_id",
+        "status",
+        'status',
     ];
 
     public function admin(): BelongsTo

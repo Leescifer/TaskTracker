@@ -219,10 +219,24 @@
 
 .navItem{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  border-bottom: 1px solid #444;
+  justify-content: flex-start;
+  padding: 10px;
+  margin-top: 2rem;
   color: black;
   text-decoration: none;
+
+
+  &:hover{
+    background-color: #333;
+    color: white;
+    border-radius: 10px;
+  }
+
+
+
+  .navLinks{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 }
