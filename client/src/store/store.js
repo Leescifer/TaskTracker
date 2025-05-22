@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import taskReducer from '@/store/taskSlice';
-import authReducer from '@/store/auth'; // Assuming you have this
+import authReducer from '@/store/auth'; 
 
 // Check if environment is set correctly
 if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -14,12 +14,11 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // For handling non-serializable values in state
+      serializableCheck: false, 
     }),
 });
 
-// 5. Debugging utility for API connection issues
-// Add this file to your project: apiDebugger.js
+// Debugging utility for API connection issues
 
 export const testApiConnection = async () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;

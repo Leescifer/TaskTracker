@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TaskCard from '@components/TaskCard.jsx';
-import TaskModal from '@components/TaskModal.jsx';
+import TaskModal from '@/components/AddTaskModal.jsx';
 import styles from '@styles/kandanBord.module.scss';
 import { fetchTasks } from '../store/taskSlice';
 

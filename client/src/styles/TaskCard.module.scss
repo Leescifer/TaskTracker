@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 1rem;
@@ -26,5 +27,31 @@
       color: #888;
       font-size: 0.85rem;
     }
+  }
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #e53935;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
   }
 }
