@@ -125,7 +125,7 @@ const handleLogout = async () => {
             <h1 className={styles.title}>
               Hello, <span className={styles.titleSpan}>{userRole || 'User'}</span>!
             </h1>
-            <p className={styles.titleDescription}>Keep track of your task.</p>
+            <p className={styles.titleDescription}>KAM</p>
           </div>
 
           <UserContainer>
