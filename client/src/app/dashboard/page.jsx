@@ -30,6 +30,7 @@ import KanbanBoard from '@/components/KanbanBoard.jsx';
 const adminMenu = [
   { title: 'Dashboard', path: '/dashboard', visible: true, icon: <DashboardIcon /> },
   { title: 'Users', path: '/users', visible: true, icon: <UsersIcon /> },
+  { title: 'Profile', path: '/profile', visible: true, icon: <CircleUser /> },
   { title: 'Logout', path: '/logout', visible: true, icon: <LogoutIcon /> },
 ];
 
@@ -137,11 +138,11 @@ const Dashboard = () => {
           <UserContainer>{/* Optional user info */}</UserContainer>
         </TopContainer>
 
-        <Content>
-          <div className={styles.boardContainer}>
-            <KanbanBoard />
-          </div>
-        </Content>
+     <Content>
+  <div className={styles.boardContainer}>
+     <KanbanBoard />
+  </div>
+</Content>
       </ContentContainer>
     </MainContainer>
   );

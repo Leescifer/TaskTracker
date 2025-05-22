@@ -1,0 +1,112 @@
+.users-container {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+
+  @media (max-width: 520px) {
+    margin: 1rem;
+    padding: 1rem 1.2rem;
+  }
+}
+
+.users-welcome {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  @media (max-width: 520px) {
+    font-size: 1.6rem;
+  }
+}
+
+.users-list-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+
+  @media (max-width: 520px) {
+    font-size: 1.3rem;
+  }
+}
+
+.users-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.users-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f9f9f9;
+    cursor: default;
+  }
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 1rem;
+
+  @media (max-width: 520px) {
+    font-size: 0.95rem;
+  }
+}
+
+.user-email {
+  color: #666;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+
+  @media (max-width: 520px) {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
+.loading,
+.error,
+.no-users {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+
+  @media (max-width: 520px) {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.error {
+  color: #c53030; /* red-ish */
+  font-weight: 600;
+}

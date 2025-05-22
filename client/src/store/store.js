@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import taskReducer from '@/store/taskSlice';
 import authReducer from '@/store/auth'; 
+import userReducer from '@/store/userSlice'
 
 // Check if environment is set correctly
 if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     tasks: taskReducer,
     auth: authReducer,
+    users: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

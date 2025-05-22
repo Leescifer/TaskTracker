@@ -61,38 +61,36 @@ const KanbanBoard = () => {
   };
 
   // Drag end handler to update task status
-const onDragEnd = async (result) => {
-  const { destination, source, draggableId } = result;
-  if (!destination) return;
-  if (
-    destination.droppableId === source.droppableId &&
-    destination.index === source.index
-  )
-    return;
+  const onDragEnd = async (result) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
 
-  const newStatus = destination.droppableId;
-  const taskToUpdate = tasks.find((task) => String(task.id) === draggableId);
-  if (!taskToUpdate) return;
+    const newStatus = destination.droppableId;
+    const taskToUpdate = tasks.find((task) => String(task.id) === draggableId);
+    if (!taskToUpdate) return;
 
-  // Prepare full payload with all required fields + new status
-  const updatedTaskData = {
-    title: taskToUpdate.title,
-  description: taskToUpdate.description,
-  date_start: taskToUpdate.date_start, 
-  date_end: taskToUpdate.date_end,     
-  priority: taskToUpdate.priority,
-  user_id: taskToUpdate.user_id,
-  status: newStatus, 
+    // Prepare full payload with all required fields + new status
+    const updatedTaskData = {
+      title: taskToUpdate.title,
+      description: taskToUpdate.description,
+      date_start: taskToUpdate.date_start,
+      date_end: taskToUpdate.date_end,
+      priority: taskToUpdate.priority,
+      user_id: taskToUpdate.user_id,
+      status: newStatus,
+    };
+
+    try {
+      await dispatch(updateTask({ id: taskToUpdate.id, data: updatedTaskData })).unwrap();
+    } catch (err) {
+      console.error('Failed to update task status:', err);
+    }
   };
-
-  try {
-    await dispatch(updateTask({ id: taskToUpdate.id, data: updatedTaskData })).unwrap();
-  } catch (err) {
-    console.error('Failed to update task status:', err);
-  }
-};
-
-
 
   return (
     <div className={styles.board}>
