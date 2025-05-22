@@ -1,223 +1,222 @@
 .mainContainer {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    overflow: hidden;
-    background-color: #f9fafb;
-  
-    @media (max-width: 1024px) {
-      flex-direction: column;
-    }
-  }
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  overflow: hidden;
+  background-color: #f9fafb;
 
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    z-index: 40;
-  
-    &.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+  @media (max-width: 1024px) {
+    flex-direction: column;
   }
-  
-/* Sidebar */
-.menuContainer {
-    width: 250px;
-    background-color: #d8dbe0;
-    padding: 2rem 1.25rem;
-    height: 100vh;
-    position: relative;
-    z-index: 100;
-    overflow: hidden;
-  
-    @media (max-width: 1024px) {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      bottom: 0;
-      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: block;
-  
-      &.open {
-        left: 0;
-      }
-    }
-  }
-  
-  .closeButtonContainer {
-    display: none;
-  
-    @media (max-width: 1024px) {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-  }
-  
-  .menuButtonContainer {
-    display: none;
-  
-    @media (max-width: 1024px) {
-      display: block;
-    }
-  }
-  
-  .topMenuButton {
-    display: none;
-  
-    @media (max-width: 1024px) {
-      display: flex;
-      justify-content: flex-end;
-      padding: 1rem 1.5rem;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 60;
-    }
-  }
-
-.contentContainer {
-    flex: 1;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    overflow: hidden;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 40;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Sidebar */
+.menuContainer {
+  width: 250px;
+  background-color: #d8dbe0;
+  padding: 2rem 1.25rem;
+  height: 100vh;
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    bottom: 0;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+
+    &.open {
+      left: 0;
+    }
+  }
+}
+
+.closeButtonContainer {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+}
+
+.menuButtonContainer {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+}
+
+.topMenuButton {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 60;
+  }
+}
+
+.contentContainer {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
 
 .topContainer {
-    background-color: #f9fafb;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  background-color: #f9fafb;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 
-    @media (max-width: 1024px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        gap: 0;
-    }
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 0;
+  }
 }
 
 .userContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .content {
-    padding: 0.5rem;
-    padding-bottom: 1rem;
-    height: 100%;
-    overflow-y: auto;
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  height: 100%;
+  overflow-y: auto;
 
-    @media (max-width: 1024px) {
-        padding: 2rem;
-    }
+  @media (max-width: 1024px) {
+    padding: 2rem;
+  }
 }
 
 /* Optional: Style dashboard cards */
 .dashboardCards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 500;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 //Hamburger Menu
-.hamburger{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    color: #31578B;
-    display: none;
+.hamburger {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  color: #31578b;
+  display: none;
 }
 
 //Admin Dashboard Title
-.titleName{
-    padding: 1rem 2rem;
-    margin-top: 2rem;
+.titleName {
+  padding: 1rem 2rem;
+  margin-top: 2rem;
 
-    @media (max-width: 480px) {
-      padding: .5rem 1rem;
-    }
-
+  @media (max-width: 480px) {
+    padding: 0.5rem 1rem;
+  }
 }
 
-.title{
-    font-weight: bold;
-    font-size: 3rem;
+.title {
+  font-weight: bold;
+  font-size: 3rem;
 
-    @media (max-width: 768px) {
-      font-size: 2.5rem;
-    }
-    
-    @media (max-width: 480px) {
-      font-size: 2rem;
-      font-weight: 600;
-    }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    font-weight: 600;
+  }
 }
 
-.titleSpan{
-    color: #505153;
-    text-transform: uppercase;
+.titleSpan {
+  color: #505153;
+  text-transform: uppercase;
 
-    @media (max-width: 768px) {
-      font-size: 2.5rem;
-    }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 
-    @media (max-width: 480px) {
-      font-size: 2rem;
-      font-weight: 600;
-    }
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    font-weight: 600;
+  }
 }
 
-.titleDescription{
-    color: #7C7C7C;
-    font-size: 1.5rem;
-    font-weight: lighter;
+.titleDescription {
+  color: #7c7c7c;
+  font-size: 1.5rem;
+  font-weight: lighter;
 
-    @media (max-width: 768px) {
-      font-size: 1.3rem;
-    }
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 
-    @media (max-width: 480px) {
-      font-size: 1rem;
-    }
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 }
 
 //Admin Logo
-.adminLogo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    color: white;
+.adminLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: white;
 }
 
-.navItem{
+// Old sidebar nav item
+.navItem {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,4 +224,56 @@
   border-bottom: 1px solid #444;
   color: black;
   text-decoration: none;
+}
+
+// ⬇️ NEW TOP NAVBAR STYLES
+
+.topNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navMenu {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navItem {
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid transparent;
+}
+
+.navItem:hover {
+  color: #1e88e5;
+}
+
+.active {
+  color: #1e88e5;
+  font-weight: 600;
+  border-bottom: 2px solid #1e88e5;
+}
+
+.rightSection {
+  text-align: right;
+}
+
+.boardContainer {
+  padding: 2rem;
 }
