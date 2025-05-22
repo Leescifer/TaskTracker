@@ -14,7 +14,7 @@
 
    .title{
     margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #333;
   }
 
@@ -64,4 +64,32 @@
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+.metaInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.avatar {
+  background-color: #0070f3;
+  color: white;
+  border-radius: 50%;
+  padding: 0.4rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }

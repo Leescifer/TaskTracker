@@ -2,7 +2,7 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  background-color: #f4f5f7;
+  background-color: #ffffff;
   min-height: fixed;
   overflow-x: auto;
 }
@@ -17,11 +17,12 @@
 
   h2 {
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #333;
     text-transform: capitalize;
-    border-bottom: 2px solid #e0e0e0;
     padding-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
   }
 
   // Optional: Add a scroll if content is long
@@ -74,5 +75,64 @@
   height: 1.25rem;
   color: #333;
 }
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+}
+
+.summaryCard {
+  flex: 1;
+  min-width: 200px;
+  background: #fff5d1;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  h3 {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+  }
+}
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.todo {
+  background-color: #ff9800;
+}
+
+.inprogress {
+  background-color: #2196f3;
+}
+
+.done {
+  background-color: #4caf50;
+}
+
+
 
 

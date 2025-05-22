@@ -76,78 +76,78 @@ const Auth = () => {
 
   return (
     <div className={styles.container}>
-      {/* Left Panel */}
+      {/* Left Panel with Image */}
       <div className={styles.left}>
-        <div className={styles.text}>
-          <h1 className={styles.logo}>ANQUERO</h1>
-          <h2 className={styles.tagline}>
-            Simple task <br /> management
-          </h2>
-          {error && <p className={styles.error}>{error}</p>}
-        </div>
+        <img
+          src="/images/task-logo.jpg"
+          alt="Task Illustration"
+          className={styles.leftImage}
+        />
       </div>
 
-      {/* Right Panel */}
+      {/* Right Panel with Container */}
       <div className={styles.right}>
-        <div className={styles.box}>
-          <h2 className={styles.title}>{isLogin ? 'Sign in' : 'Sign up'}</h2>
+        <div className={styles.rightContainer}>
+          <div className={styles.box}>
+            <h2 className={styles.title}>{isLogin ? 'Sign in' : 'Sign up'}</h2>
 
-          <form onSubmit={handleSubmit}>
-            {!isLogin && (
+            <form onSubmit={handleSubmit}>
+              {!isLogin && (
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Username"
+                  value={formData.name}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                />
+              )}
+
               <input
-                type="text"
-                name="name"
-                placeholder="Username"
-                value={formData.name}
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
                 onChange={handleChange}
                 autoComplete="off"
                 required
               />
-            )}
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
+              {!isLogin && (
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className={styles.selector}
+                >
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+              )}
 
-            {!isLogin && (
-              <select
-                name="role"
-                value={formData.role}
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
                 onChange={handleChange}
-                className={styles.selector}
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            )}
+                autoComplete="off"
+                required
+              />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
+              <button type="submit" className={styles.button}>
+                {isLogin ? 'Sign in' : 'Sign up'}
+              </button>
+            </form>
 
-            <button type="submit" className={styles.button}>
-              {isLogin ? 'Sign in' : 'Sign up'}
-            </button>
-          </form>
-
-          <p className={styles.changeAuthentication}>
-            {isLogin ? "Don't have an account yet? " : 'Already have an account? '}
-            <span onClick={toggleAuthMode} className={styles.span}>
-              {isLogin ? 'Sign up' : 'Sign in'}
-            </span>
-          </p>
+            <p className={styles.changeAuthentication}>
+              {isLogin ? "Don't have an account yet? " : 'Already have an account? '}
+              <span onClick={toggleAuthMode} className={styles.span}>
+                {isLogin ? 'Sign up' : 'Sign in'}
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

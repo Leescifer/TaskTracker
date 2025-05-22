@@ -1,5 +1,5 @@
 $primary-color: #3f3f4497;
-$accent-color: #161515fe;
+$accent-color: #fbe287;
 $font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 .logo {
@@ -11,6 +11,8 @@ $font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, $primary-color, $accent-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-left: 40px;
+
 
   span {
     color: $accent-color;
