@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import TaskCard from '@components/TaskCard.jsx';
 import TaskModal from '@/components/AddTaskModal.jsx';
 import styles from '@styles/kandanBord.module.scss';
-import { fetchTasks, updateTask } from '../store/taskSlice';
+import { fetchTasks, updateTask } from '@store/taskSlice.js';
 
 import {
   Plus,

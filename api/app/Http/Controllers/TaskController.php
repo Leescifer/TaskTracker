@@ -37,7 +37,7 @@ class TaskController extends Controller
     'date_end' => $request->date_end,
     'user_id' => $request->user_id,
     'admin_user_id' => Auth::id(),
-    'status' => $request->status, // ✅ Add this
+    'status' => $request->status,
 ]);
 
 
