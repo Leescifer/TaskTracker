@@ -7,11 +7,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        // Only return users with role = 'user'
-        $users = User::where('role', 'user')->select('id', 'name', 'role')->get();
+    public function index(Request $request)
+{
+    $role = auth()->user()->role;
 
-        return response()->json($users);
+    if ($role === 'admin') {
+        $users = User::select('id', 'name', 'email', 'role')->get();
+    } else {
+        $users = User::where('role', 'user')->select('id', 'name', 'role')->get();
     }
+
+    return response()->json($users);
+}
 }

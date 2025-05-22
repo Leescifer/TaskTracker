@@ -14,9 +14,16 @@ import KanbanBoard from '@/components/KanbanBoard.jsx';
 import { logout as logoutAction } from '@/store/auth.js';
 
 const adminMenu = [
+<<<<<<< HEAD
   { title: 'Dashboard', path: '/dashboard', visible: true },
   { title: 'Manage Users', path: '/manage-users', visible: true },
   { title: 'Logout', path: '/logout', visible: true }
+=======
+  { title: 'Dashboard', path: '/dashboard', visible: true, icon: <DashboardIcon /> },
+  { title: 'Users', path: '/users', visible: true, icon: <UsersIcon /> },
+  { title: 'Profile', path: '/profile', visible: true, icon: <CircleUser /> },
+  { title: 'Logout', path: '/logout', visible: true, icon: <LogoutIcon /> },
+>>>>>>> f593b8cfbc8d94d49a486470b58b2042e63ead2e
 ];
 
 const userMenu = [
@@ -81,12 +88,23 @@ const Dashboard = () => {
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* Kanban Board Section */}
         <Content>
           <div className={styles.boardContainer}>
             <KanbanBoard />
           </div>
         </Content>
+=======
+          <UserContainer>{/* Optional user info */}</UserContainer>
+        </TopContainer>
+
+     <Content>
+  <div className={styles.boardContainer}>
+     <KanbanBoard />
+  </div>
+</Content>
+>>>>>>> f593b8cfbc8d94d49a486470b58b2042e63ead2e
       </ContentContainer>
     </MainContainer>
   );

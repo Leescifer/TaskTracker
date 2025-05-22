@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+<<<<<<< HEAD
 import { Trash2, EllipsisVertical } from 'lucide-react';
+=======
+import { Trash2  } from 'lucide-react';
+>>>>>>> f593b8cfbc8d94d49a486470b58b2042e63ead2e
 import DeleteTaskModal from './DeleteTaskModal';
 import styles from '@styles/TaskCard.module.scss';
 
@@ -23,12 +27,15 @@ const TaskCard = ({ task }) => {
         </button>
       )}
 
+<<<<<<< HEAD
       {role === 'user' && (
         <button className={styles.elipse}>
           <EllipsisVertical />
         </button>
       )}
 
+=======
+>>>>>>> f593b8cfbc8d94d49a486470b58b2042e63ead2e
       <h2 className={styles.title}>{task.title || 'Untitled Task'}</h2>
       <p>{task.description || 'No description'}</p>
       <p>Start: {task.date_start || 'Not set'}</p>
