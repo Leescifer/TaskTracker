@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
+;''
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchUserProfile = createAsyncThunk(

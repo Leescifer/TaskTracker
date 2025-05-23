@@ -1,4 +1,4 @@
-.users-container {
+.userContainer {
   max-width: 480px;
   margin: 2rem auto;
   padding: 1.5rem 2rem;
@@ -14,7 +14,7 @@
   }
 }
 
-.users-welcome {
+.userWelcome {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -25,7 +25,7 @@
   }
 }
 
-.users-list-title {
+.title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -37,7 +37,7 @@
   }
 }
 
-.users-list {
+.userList {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -46,22 +46,14 @@
   overflow: hidden;
 }
 
-.users-list-item {
+.userItem {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   padding: 0.8rem 1rem;
   border-bottom: 1px solid #ddd;
   transition: background-color 0.2s ease;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:hover {
-    background-color: #f9f9f9;
-    cursor: default;
-  }
 
   @media (max-width: 520px) {
     flex-direction: column;
@@ -70,16 +62,24 @@
   }
 }
 
-.user-name {
+.userItem {
   font-weight: 600;
   font-size: 1rem;
+  list-style: none;
 
   @media (max-width: 520px) {
     font-size: 0.95rem;
   }
+
+  .data{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    padding: 10px 12px;
+  }
 }
 
-.user-email {
+.userEmail {
   color: #666;
   font-size: 0.9rem;
   white-space: nowrap;
@@ -109,4 +109,17 @@
 .error {
   color: #c53030; /* red-ish */
   font-weight: 600;
+}
+
+.topBar {
+  margin-bottom: 1rem;
+}
+
+.backLink {
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
 }

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserProfile } from "@/store/auth";
 import styles from '@styles/profile.module.scss';
+import Link from 'next/link';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ const Profile = () => {
 
   return (
     <div className={styles.profileContainer}>
+            <div className={styles.topBar}>
+                <Link href="/dashboard" className={styles.backLink}>← Back to Dashboard</Link>
+            </div>
       <h1>Welcome, {user.name}</h1>
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>Role:</strong> {role}</p>
