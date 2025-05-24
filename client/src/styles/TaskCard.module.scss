@@ -1,6 +1,6 @@
 .card {
   position: relative;
-  background-color: #ffffff;
+  background-color: #ff746c;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -15,16 +15,16 @@
    .title{
     margin: 0 0 0.5rem 0;
     font-size: 1.1rem;
-    color: #333;
+    color: #fbfbfb;
   }
 
   p {
     margin: 0.25rem 0;
     font-size: 0.95rem;
-    color: #555;
+    color: #ffffff;
 
     &:last-child {
-      color: #888;
+      color: #ffffff;
       font-size: 0.85rem;
     }
   }
@@ -36,7 +36,7 @@
   right: 10px;
   background: transparent;
   border: none;
-  color: #888;
+  color: #fffbfb;
   font-size: 1.25rem;
   cursor: pointer;
   padding: 4px;

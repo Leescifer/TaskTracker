@@ -31,7 +31,7 @@
 /* Sidebar */
 .menuContainer {
     width: 250px;
-    background-color: #d8dbe0;
+    background-color: #ff746c;
     padding: 2rem 1.25rem;
     height: 100vh;
     position: relative;
@@ -94,7 +94,7 @@
 
 
 .topContainer {
-    background-color: #f9fafb;
+    background-color: #f4f9fd;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -222,13 +222,13 @@
   justify-content: flex-start;
   padding: 10px;
   margin-top: 2rem;
-  color: black;
+  color: rgb(255, 255, 255);
   text-decoration: none;
 
 
   &:hover{
-    background-color: #333;
-    color: white;
+    background-color: white;
+    color: #ff746c;
     border-radius: 10px;
   }
 

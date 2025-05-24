@@ -1,9 +1,8 @@
 // Variables
-$white: #fff;
-$light-gray: #E2E2E2;
-$border-color: #8C8C8C;
-$text-color: #333;
-
+$white: #fffef2;
+$light-gray: #ff746c;
+$border-color: #f0f0f0;
+$text-color: #d9d9d9;
 
 .container {
     display: flex;
@@ -15,6 +14,11 @@ $text-color: #333;
       width: 35%;
       display: flex;
       align-items: center;
+    
+      .leftImage{
+        margin-left: 80px;
+        height: 500px;
+      }
       
       .text {
         padding-left: 150px;
@@ -22,13 +26,15 @@ $text-color: #333;
         .logo {
           font-size: 25px;
           font-weight: bold;
-          margin-bottom: 50px;
+          margin-bottom: 300px;
+         
         }
         
         .tagline {
           font-size: 36px;
           font-weight: bold;
           line-height: 1.7;
+          margin-bottom: 300px;
         }
 
       .error{
@@ -80,25 +86,26 @@ $text-color: #333;
           font-weight: bold;
           margin-bottom: 30px;
           text-align: center;
+          color: #fffefe;
+        }
+        
+        .changeAuthentication{
+          color: #d9d9d9;
         }
         
         form {
           display: flex;
           flex-direction: column;
-          
-          label {
-            font-size: 15px;
-            margin-bottom: 8px;
-          }
+          color: white;
           
           input {
             height: 46px;
             padding: 0 15px;
             border: 1px solid $border-color;
+            color: #be0909;
             border-radius: 10px;
             margin-bottom: 20px;
             font-size: 16px;
-            background-color: transparent;
             
             &:focus {
               outline: none;

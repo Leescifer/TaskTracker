@@ -78,11 +78,8 @@ const Auth = () => {
     <div className={styles.container}>
       {/* Left Panel */}
       <div className={styles.left}>
-        <div className={styles.text}>
-          <h1 className={styles.logo}>ANQUERO</h1>
-          <h2 className={styles.tagline}>
-            Simple task <br /> management
-          </h2>
+        <div className={styles.left}>
+        <img src="/image/task.png" alt="" className={styles.leftImage} />
           {error && <p className={styles.error}>{error}</p>}
         </div>
       </div>

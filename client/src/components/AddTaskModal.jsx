@@ -20,21 +20,23 @@ const TaskModal = ({ isOpen, onClose }) => {
   const [users, setUsers] = useState([]);
   const [formError, setFormError] = useState('');
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const fetchUsers = async () => {
-      try {
-        const token = Cookies.get('authToken');
-        const res = await axios.get(`${API_URL}/users`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers(res.data);
-      } catch {
-        setUsers([]);
-      }
-    };
-    fetchUsers();
-  }, [isOpen]);
+ useEffect(() => {
+  if (!isOpen) return;
+  const fetchUsers = async () => {
+    try {
+      const token = Cookies.get('authToken');
+      const res = await axios.get(`${API_URL}/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Only include non-admin users
+      const nonAdminUsers = res.data.filter(user => user.role !== 'admin');
+      setUsers(nonAdminUsers);
+    } catch {
+      setUsers([]);
+    }
+  };
+  fetchUsers();
+}, [isOpen]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
